@@ -4,6 +4,7 @@ metadata:
   name: color-app
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: color-app
