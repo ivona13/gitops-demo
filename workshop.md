@@ -122,8 +122,15 @@ To synchronize/deploy the Argo CD app click the <code>Sync button</code>.
 
 Check the state:
 ```bash
-kubectl get deployments
+kubectl get deployments -n demo
 ```
+If all services are up and running, check the application which is exposed by NodePort in the example.
+In Rancher Desktop, NodePort services are exposed on localhost by default.
+```bash
+kubectl get service -n demo
+```
+PICTURE.
+Check <code>http://localhost:30080</code>
 
 ### Change syncing policy to Automatic using ArgoCD
 ArgoCD supports Automatic sync policy for the applications if we enable them - it will automatically sync the application when there is a change in the Git repository.
@@ -136,4 +143,6 @@ By default, the sync period is 3 minutes. This means that every 3 minutes Argo C
   - If both states are the same, do nothing and mark the application as synced.
   - If states are different mark the application as "out-of-sync".
 
-
+Action:
+! Change the application color in the UI to red.
+Wait 3 minutes and check the application status in the UI. It should change to red, and the application should be synced.
