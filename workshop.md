@@ -87,8 +87,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret \
 ```
 
 ### Connect repository
-
-TBD.
+![image](repo-connection.png)
 
 ### Creating an application
 
@@ -129,8 +128,10 @@ In Rancher Desktop, NodePort services are exposed on localhost by default.
 ```bash
 kubectl get service -n demo
 ```
-PICTURE.
-Check <code>http://localhost:30080</code>
+![image](deployment.png)
+![image](nodeport.png)
+
+Open the application in the browser: <code>http://localhost:30080</code>
 
 ### Change syncing policy to Automatic using ArgoCD
 ArgoCD supports Automatic sync policy for the applications if we enable them - it will automatically sync the application when there is a change in the Git repository.
@@ -141,8 +142,35 @@ By default, the sync period is 3 minutes. This means that every 3 minutes Argo C
 - Compare the Git state with the cluster state.
 - Take an action:
   - If both states are the same, do nothing and mark the application as synced.
-  - If states are different mark the application as "out-of-sync".
+  - If states are different, mark the application as <i>out-of-sync</i>.
 
-Action:
-! Change the application color in the UI to red.
-Wait 3 minutes and check the application status in the UI. It should change to red, and the application should be synced.
+<blockquote>
+Action: Change the application color in the UI to red. Enable auto-sync option. Wait 3 minutes and check the application status in the UI. It should change to red, and the application should be synced.
+</blockquote>
+
+### Enable self-healing using ArgoCD
+Autosync will automatically deploy your application as soon as the Git repository changes. 
+However, if somebody makes a manual change in the cluster state, Argo CD will not do anything by default (it will still mark the application as out-of-sync though).
+ArgoCD enables self-healing to handle it – it makes our environments bulletproof against ad-hoc changes via kubectl.
+![image](out-of-sync.png)
+
+![image](enable-auto-sync.png)
+
+<blockquote>
+Action: Change the number of pods in the deployment to 2. Enable <i>Auto-sync</i> option
+Wait 3 minutes and check the application status in the UI.
+</blockquote>
+
+```bash
+kubectl scale deployment color-app --replicas=2 -n demo
+```
+
+### Enable auto-prune
+Even after having auto-sync on and self-heal on, Argo CD will never delete resources from the cluster if you remove them in Git.
+To enable this behavior, you need to enable the auto-prune option.
+
+<blockquote>
+Action: Delete a deployment.yaml file from your local repo, commit it to Github, and check the application status in the UI.
+It should be marked as out-of-sync.
+Enable <i>Prune resources</i> and refresh the deployment.
+</blockquote>
