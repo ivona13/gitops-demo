@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: color-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: color-app
+  template:
+    metadata:
+      labels:
+        app: color-app
+    spec:
+      containers:
+        - name: web
+          image: nginx:alpine
+          env:
+            - name: APP_COLOR
+              value: "teal"   # change this for demo
+          volumeMounts:
+            - name: template
+              mountPath: /usr/share/nginx/html-template
+          command: ["/bin/sh", "-c"]
+          args:
+            - apk add --no-cache gettext && envsubst < /usr/share/nginx/html-template/index.html > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'
+      volumes:
+        - name: template
+          configMap:
+            name: color-app-template
