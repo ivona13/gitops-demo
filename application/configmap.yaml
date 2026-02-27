@@ -19,7 +19,7 @@ data:
         </style>
     </head>
     <body>
-    <h1>GitOps Demo in progress.. &#x1F642; </h1>
+    <h1>GitOps Demo in progress... &#x1F642; </h1>
     <p>Background color is: ${APP_COLOR}</p>
     </body>
     </html>
