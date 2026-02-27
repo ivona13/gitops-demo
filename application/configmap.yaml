@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: color-app-template
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>GitOps Color Demo</title>
+        <style>
+            body {
+                background-color: ${APP_COLOR};
+                font-family: Arial, sans-serif;
+                text-align: center;
+                padding-top: 20%;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+    <h1>GitOps Demo in progress... &#x1F642; </h1>
+    <p>Background color is: ${APP_COLOR}</p>
+    </body>
+    </html>
+
