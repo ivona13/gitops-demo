@@ -7,7 +7,7 @@ data:
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Kubernetes Color Demo</title>
+        <title>GitOps Color Demo</title>
         <style>
             body {
                 background-color: ${APP_COLOR};
@@ -19,7 +19,8 @@ data:
         </style>
     </head>
     <body>
-    <h1>Hello from Kubernetes 🎉</h1>
+    <h1>GitOps Demo in progress.. &#x1F642; </h1>
     <p>Background color is: ${APP_COLOR}</p>
     </body>
     </html>
+
