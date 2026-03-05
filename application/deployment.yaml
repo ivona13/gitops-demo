@@ -18,7 +18,7 @@ spec:
           image: nginx:alpine
           env:
             - name: APP_COLOR
-              value: "black"
+              value: "red"
           volumeMounts:
             - name: template
               mountPath: /usr/share/nginx/html-template
